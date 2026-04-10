@@ -1,0 +1,48 @@
+{
+  "setup": {
+    "bg": "#0f172a",
+    "card": "#1e293b",
+    "textPrimary": "#f1f5f9",
+    "accent": "#38bdf8",
+    "button": "#0284c7",
+    "inputBg": "#0f172a",
+    "inputBorder": "#475569",
+    "inputText": "#f1f5f9",
+    "inputPlaceholder": "#64748b"
+  },
+  "host": {
+    "bg": "#f1f5f9",
+    "card": "#ffffff",
+    "textPrimary": "#1e293b",
+    "textAccent": "#4338ca",
+    "confirmBtn": "#059669",
+    "nextBtn": "#4f46e5",
+    "hintBtn": "#f59e0b"
+  },
+  "guest": {
+    "bg": "#020617",
+    "panel": "#0f172a",
+    "textPrimary": "#ffffff",
+    "accent": "#38bdf8",
+    "waitingTitle": "#38bdf8",
+    "liveIndicator": "#ef4444",
+    "optionLetter": "#f59e0b",
+    "optionBg": "#0f172a",
+    "optionSelected": "#0c4a6e",
+    "optionSelectedBorder": "#f59e0b",
+    "optionCorrect": "#064e3b",
+    "optionCorrectBorder": "#10b981",
+    "optionWrong": "#881337",
+    "optionWrongBorder": "#f43f5e"
+  },
+  "result": {
+    "bg": "#020617",
+    "tableHeader": "#1e293b",
+    "tableRow": "#1e293b",
+    "textPrimary": "#f1f5f9",
+    "accent": "#fbbf24",
+    "correctRow": "#34d399",
+    "wrongRow": "#fb7185",
+    "homeBtn": "#0284c7"
+  }
+}

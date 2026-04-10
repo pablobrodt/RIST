@@ -24,51 +24,50 @@ export default function ResultScreen() {
 
   const handleHome = () => {
     resetGame();
-    // UseEffect will catch the null gameState and push us back
   };
 
   return (
-    <div className="h-screen max-h-screen overflow-hidden bg-slate-950 flex flex-col items-center py-8 px-4 tv-glow font-sans text-white">
+    <div className="h-screen max-h-screen overflow-hidden bg-[var(--color-result-bg)] flex flex-col items-center py-8 px-4 tv-glow font-sans text-[var(--color-result-textPrimary)] transition-colors">
       <div className="max-w-4xl w-full h-full flex flex-col justify-between">
         
         <div className="text-center mb-6 shrink-0 animate-fade-in-up">
-          <Trophy className="w-16 h-16 mx-auto text-amber-400 mb-4 drop-shadow-[0_0_15px_rgba(251,191,36,0.6)]" />
-          <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500 mb-2">
+          <Trophy className="w-16 h-16 mx-auto mb-4" style={{ color: 'var(--color-result-accent)', filter: 'drop-shadow(0 0 15px var(--color-result-accent))' }} />
+          <h1 className="text-4xl font-extrabold mb-2" style={{ color: 'var(--color-result-accent)' }}>
             {translateText('result.title')}
           </h1>
-          <p className="text-xl text-slate-300">
+          <p className="text-xl opacity-80">
             {translateText('result.score')} 
-            <span className="text-amber-400 font-bold mx-2">{correctCount}</span> {translateText('result.of')} {totalCount}
+            <span className="font-bold mx-2" style={{ color: 'var(--color-result-accent)' }}>{correctCount}</span> {translateText('result.of')} {totalCount}
           </p>
         </div>
 
-        <div className="bg-slate-900/60 backdrop-blur rounded-2xl border border-slate-700 shadow-2xl flex-1 overflow-y-auto min-h-0 mb-6">
+        <div className="bg-[var(--color-result-tableRow)]/50 backdrop-blur rounded-2xl border border-slate-700 shadow-2xl flex-1 overflow-y-auto min-h-0 mb-6 transition-colors">
           <table className="w-full text-left border-collapse">
             <thead className="sticky top-0 z-10 backdrop-blur shadow-sm">
-              <tr className="bg-slate-800/80 text-sky-400 text-sm uppercase tracking-wider">
+              <tr className="bg-[var(--color-result-tableHeader)] text-sm uppercase tracking-wider transition-colors" style={{ color: 'var(--color-setup-accent)' }}>
                 <th className="py-4 px-6 font-semibold w-16">{translateText('result.colNumber')}</th>
-                <th className="py-4 px-6 font-semibold border-l border-slate-700">{translateText('result.colQuestion')}</th>
-                <th className="py-4 px-6 font-semibold border-l border-slate-700 w-32 text-center">{translateText('result.colResult')}</th>
-                <th className="py-4 px-6 font-semibold border-l border-slate-700 w-1/4">{translateText('result.colCorrectAnswer')}</th>
+                <th className="py-4 px-6 font-semibold border-l border-slate-700/50">{translateText('result.colQuestion')}</th>
+                <th className="py-4 px-6 font-semibold border-l border-slate-700/50 w-32 text-center">{translateText('result.colResult')}</th>
+                <th className="py-4 px-6 font-semibold border-l border-slate-700/50 w-1/4">{translateText('result.colCorrectAnswer')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/50">
               {gameState.results.map((item, idx) => (
-                <tr key={idx} className="hover:bg-slate-800/30 transition-colors">
-                  <td className="py-4 px-6 text-slate-400 font-medium">{idx + 1}</td>
+                <tr key={idx} className="hover:brightness-110 transition-colors bg-[var(--color-result-tableRow)]">
+                  <td className="py-4 px-6 opacity-70 font-medium">{idx + 1}</td>
                   <td className="py-4 px-6 border-l border-slate-800/50 font-medium">{item.question}</td>
                   <td className="py-4 px-6 border-l border-slate-800/50 text-center">
                     {item.result ? (
-                      <div className="flex justify-center bg-emerald-500/20 rounded-full py-1">
-                        <Check className="w-5 h-5 text-emerald-400" />
+                      <div className="flex justify-center rounded-full py-1" style={{ backgroundColor: 'var(--color-result-correctRow)', opacity: 0.8 }}>
+                        <Check className="w-5 h-5 text-white" />
                       </div>
                     ) : (
-                      <div className="flex justify-center bg-rose-500/20 rounded-full py-1">
-                        <X className="w-5 h-5 text-rose-400" />
+                      <div className="flex justify-center rounded-full py-1" style={{ backgroundColor: 'var(--color-result-wrongRow)', opacity: 0.8 }}>
+                        <X className="w-5 h-5 text-white" />
                       </div>
                     )}
                   </td>
-                  <td className="py-4 px-6 border-l border-slate-800/50 text-emerald-400 font-medium">
+                  <td className="py-4 px-6 border-l border-slate-800/50 font-medium" style={{ color: 'var(--color-result-correctRow)' }}>
                     {item.correctAnswer}
                   </td>
                 </tr>
@@ -81,7 +80,8 @@ export default function ResultScreen() {
           {isHost && (
             <button
               onClick={handleHome}
-              className="flex items-center px-6 py-3 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition shadow-[0_0_15px_rgba(2,132,199,0.5)] transform hover:scale-105"
+              style={{ backgroundColor: 'var(--color-result-homeBtn)' }}
+              className="flex items-center px-6 py-3 text-white font-bold rounded-xl transition hover:brightness-110 shadow-lg transform hover:scale-105"
             >
               <Home className="w-5 h-5 mr-2" />
               {translateText('result.newGame')}

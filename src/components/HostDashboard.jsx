@@ -82,11 +82,11 @@ export default function HostDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-800 p-6 font-sans">
+    <div className="min-h-screen bg-[var(--color-host-bg)] text-[var(--color-host-textPrimary)] p-6 font-sans transition-colors">
       <div className="max-w-5xl mx-auto space-y-6">
         
         {/* Header bar */}
-        <div className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+        <div className="flex items-center justify-between bg-[var(--color-host-card)] p-4 rounded-xl shadow-sm border border-slate-200 transition-colors">
           <div className="flex items-center space-x-4">
             <button 
               onClick={handleHome}
@@ -96,8 +96,8 @@ export default function HostDashboard() {
               <Home className="w-5 h-5" />
             </button>
             <div>
-              <h1 className="font-bold text-xl text-slate-800">{translateText('host.panelTitle')}</h1>
-              <p className="text-sm text-slate-500">{translateText('host.hostLabel')} {gameState.hostName} | {translateText('host.guestLabel')} {gameState.guestName}</p>
+              <h1 className="font-bold text-xl text-[var(--color-host-textPrimary)]">{translateText('host.panelTitle')}</h1>
+              <p className="text-sm opacity-70 text-[var(--color-host-textPrimary)]">{translateText('host.hostLabel')} {gameState.hostName} | {translateText('host.guestLabel')} {gameState.guestName}</p>
             </div>
           </div>
           
@@ -109,7 +109,7 @@ export default function HostDashboard() {
               <ExternalLink className="w-4 h-4 mr-2" />
               {translateText('host.openGuestView')}
             </button>
-            <div className="px-4 py-2 bg-indigo-50 text-indigo-700 text-sm font-medium rounded-lg border border-indigo-100">
+            <div className="px-4 py-2 bg-indigo-50 text-[var(--color-host-textAccent)] text-sm font-medium rounded-lg border border-indigo-100 transition-colors">
               {translateText('host.questionCount', { 
                 current: gameState.currentQuestionIndex + 1, 
                 total: gameState.questions.length 
@@ -122,8 +122,8 @@ export default function HostDashboard() {
           
           {/* Main Stage */}
           <div className="col-span-2 space-y-4">
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 min-h-[160px] flex items-center justify-center">
-              <h2 className="text-2xl font-bold text-center text-slate-800">
+            <div className="bg-[var(--color-host-card)] p-6 rounded-xl shadow-sm border border-slate-200 min-h-[160px] flex items-center justify-center transition-colors">
+              <h2 className="text-2xl font-bold text-center text-[var(--color-host-textPrimary)]">
                 {currentQ.question}
               </h2>
             </div>
@@ -141,7 +141,7 @@ export default function HostDashboard() {
                 } else if (isSelected) {
                    btnClass += "border-amber-400 bg-amber-50 shadow-[0_0_0_4px_rgba(251,191,36,0.1)]";
                 } else {
-                   btnClass += "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 cursor-pointer";
+                   btnClass += "border-slate-200 bg-[var(--color-host-card)] hover:border-slate-300 hover:brightness-95 cursor-pointer";
                 }
 
                 // Explicit host highlight indicator for the correct option
@@ -155,7 +155,7 @@ export default function HostDashboard() {
                     className={btnClass}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-lg text-slate-700">{['A', 'B', 'C', 'D'][idx]}: {option}</span>
+                      <span className="font-semibold text-lg text-[var(--color-host-textPrimary)]">{['A', 'B', 'C', 'D'][idx]}: {option}</span>
                       {showHostHighlight && (
                         <span className="text-xs font-bold px-2 py-1 bg-emerald-100 text-emerald-700 rounded-full">
                           {translateText('host.correctStatus')}
@@ -170,13 +170,14 @@ export default function HostDashboard() {
 
           {/* Controls */}
           <div className="col-span-1 space-y-4">
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col space-y-4">
-              <h3 className="font-bold text-slate-800 border-b pb-2">{translateText('host.controlsTitle')}</h3>
+            <div className="bg-[var(--color-host-card)] p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col space-y-4 transition-colors">
+              <h3 className="font-bold text-[var(--color-host-textPrimary)] border-b pb-2">{translateText('host.controlsTitle')}</h3>
               
               <button
                 onClick={handleConfirm}
                 disabled={!gameState.selectedOption || gameState.isRevealed}
-                className="w-full flex items-center justify-center py-3 px-4 bg-emerald-600 text-white rounded-lg font-bold hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                style={{ backgroundColor: 'var(--color-host-confirmBtn)' }}
+                className="w-full flex items-center justify-center py-3 px-4 text-white rounded-lg font-bold hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
                 <CheckCircle2 className="w-5 h-5 mr-2" />
                 {translateText('host.confirmAnswer')}
@@ -185,17 +186,18 @@ export default function HostDashboard() {
               <button
                 onClick={handleNext}
                 disabled={!gameState.isRevealed}
-                className="w-full flex items-center justify-center py-3 px-4 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                style={{ backgroundColor: 'var(--color-host-nextBtn)' }}
+                className="w-full flex items-center justify-center py-3 px-4 text-white rounded-lg font-bold hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
                 {gameState.currentQuestionIndex < gameState.questions.length - 1 ? translateText('host.nextQuestion') : translateText('host.showResults')}
                 <ChevronRight className="w-5 h-5 ml-2" />
               </button>
             </div>
 
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col space-y-4">
+            <div className="bg-[var(--color-host-card)] p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col space-y-4 transition-colors">
               <div className="flex justify-between items-center border-b pb-2">
-                <h3 className="font-bold text-slate-800">{translateText('host.powersTitle')}</h3>
-                <span className="text-xs font-bold px-2 py-1 bg-slate-100 text-slate-600 rounded-full">
+                <h3 className="font-bold text-[var(--color-host-textPrimary)]">{translateText('host.powersTitle')}</h3>
+                <span className="text-xs font-bold px-2 py-1 bg-slate-100 opacity-70 text-[var(--color-host-textPrimary)] rounded-full border border-slate-200">
                   {translateText('host.available')} {gameState.availableHints}
                 </span>
               </div>
@@ -203,7 +205,8 @@ export default function HostDashboard() {
               <button
                 onClick={handleHint}
                 disabled={gameState.availableHints === 0 || gameState.isRevealed}
-                className="w-full flex items-center justify-center py-3 px-4 bg-amber-500 text-white rounded-lg font-bold hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                style={{ backgroundColor: 'var(--color-host-hintBtn)' }}
+                className="w-full flex items-center justify-center py-3 px-4 text-white rounded-lg font-bold hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
                 <Lightbulb className="w-5 h-5 mr-2" />
                 {translateText('host.hint5050')}

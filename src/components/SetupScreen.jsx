@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Papa from 'papaparse';
-import { Upload, Play, Users, Globe } from 'lucide-react';
+import { Upload, Play, Users, Globe, Palette } from 'lucide-react';
 import { useGameSync } from '../hooks/useGameSync';
 import { useTranslation } from '../hooks/useTranslation';
 
@@ -50,7 +50,6 @@ export default function SetupScreen() {
           return;
         }
 
-        // Validate headers roughly
         const firstRow = data[0];
         if (!('question' in firstRow) || !('correct' in firstRow) || !('wrong1' in firstRow)) {
           setError(translateText('setup.error.csvInvalid'));
@@ -89,18 +88,25 @@ export default function SetupScreen() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-900 tv-glow p-4">
-      <div className="max-w-md w-full bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl shadow-2xl p-8">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-setup-bg)] tv-glow p-4 transition-colors">
+      
+      {/* Theme Link */}
+      <Link to="/theme" className="absolute top-4 right-4 flex items-center px-4 py-2 bg-[var(--color-setup-card)] text-[var(--color-setup-textPrimary)] rounded-lg shadow-md border border-slate-700 hover:brightness-110 transition">
+        <Palette className="w-4 h-4 mr-2" />
+        {translateText('setup.themeBtn')}
+      </Link>
+
+      <div className="max-w-md w-full bg-[var(--color-setup-card)] border border-slate-700/50 rounded-2xl shadow-2xl p-8 transition-colors">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-500 mb-2">
+          <h1 className="text-4xl font-extrabold text-[var(--color-setup-accent)] mb-2 transition-colors">
             RIST
           </h1>
-          <p className="text-slate-400 text-sm">{translateText('setup.title')}</p>
+          <p className="text-[var(--color-setup-textPrimary)] opacity-70 text-sm">{translateText('setup.title')}</p>
         </div>
 
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">{translateText('setup.hostNameLabel')}</label>
+            <label className="block text-sm font-medium text-[var(--color-setup-textPrimary)] mb-1">{translateText('setup.hostNameLabel')}</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Users className="h-5 w-5 text-slate-500" />
@@ -109,14 +115,14 @@ export default function SetupScreen() {
                 type="text"
                 value={hostName}
                 onChange={(e) => setHostName(e.target.value)}
-                className="pl-10 block w-full bg-slate-900 border border-slate-600 rounded-lg py-2.5 text-white placeholder-slate-500 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm transition-all"
+                className="pl-10 block w-full bg-[var(--color-setup-inputBg)] border border-[var(--color-setup-inputBorder)] rounded-lg py-2.5 text-[var(--color-setup-inputText)] placeholder-[var(--color-setup-inputPlaceholder)] focus:ring-2 focus:ring-[var(--color-setup-accent)] focus:border-[var(--color-setup-accent)] sm:text-sm transition-all"
                 placeholder={translateText('setup.hostNamePlaceholder')}
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">{translateText('setup.guestNameLabel')}</label>
+            <label className="block text-sm font-medium text-[var(--color-setup-textPrimary)] mb-1">{translateText('setup.guestNameLabel')}</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Users className="h-5 w-5 text-slate-500" />
@@ -125,19 +131,19 @@ export default function SetupScreen() {
                 type="text"
                 value={guestName}
                 onChange={(e) => setGuestName(e.target.value)}
-                className="pl-10 block w-full bg-slate-900 border border-slate-600 rounded-lg py-2.5 text-white placeholder-slate-500 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm transition-all"
+                className="pl-10 block w-full bg-[var(--color-setup-inputBg)] border border-[var(--color-setup-inputBorder)] rounded-lg py-2.5 text-[var(--color-setup-inputText)] placeholder-[var(--color-setup-inputPlaceholder)] focus:ring-2 focus:ring-[var(--color-setup-accent)] focus:border-[var(--color-setup-accent)] sm:text-sm transition-all"
                 placeholder={translateText('setup.guestNamePlaceholder')}
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">{translateText('setup.csvLabel')}</label>
-            <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-600 border-dashed rounded-lg hover:border-sky-500 transition-colors bg-slate-900/50">
+            <label className="block text-sm font-medium text-[var(--color-setup-textPrimary)] mb-1">{translateText('setup.csvLabel')}</label>
+            <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-[var(--color-setup-inputBorder)] border-dashed rounded-lg hover:border-[var(--color-setup-accent)] transition-colors bg-[var(--color-setup-inputBg)] opacity-90">
               <div className="space-y-1 text-center">
                 <Upload className="mx-auto h-12 w-12 text-slate-400" />
                 <div className="flex text-sm text-slate-300 justify-center">
-                  <label className="relative cursor-pointer bg-transparent rounded-md font-medium text-sky-400 hover:text-sky-300 focus-within:outline-none">
+                  <label className="relative cursor-pointer bg-transparent rounded-md font-medium text-[var(--color-setup-accent)] hover:brightness-110 focus-within:outline-none">
                     <span>{translateText('setup.csvUploadText')}</span>
                     <input type="file" className="sr-only" accept=".csv" onChange={handleFileChange} />
                   </label>
@@ -149,7 +155,7 @@ export default function SetupScreen() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">{translateText('setup.language')}</label>
+            <label className="block text-sm font-medium text-[var(--color-setup-textPrimary)] mb-1">{translateText('setup.language')}</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Globe className="h-5 w-5 text-slate-500" />
@@ -157,7 +163,7 @@ export default function SetupScreen() {
               <select
                 value={currentLanguage}
                 onChange={(e) => setLanguage(e.target.value)}
-                className="pl-10 block w-full bg-slate-900 border border-slate-600 rounded-lg py-2.5 text-white focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm transition-all appearance-none cursor-pointer"
+                className="pl-10 block w-full bg-[var(--color-setup-inputBg)] border border-[var(--color-setup-inputBorder)] rounded-lg py-2.5 text-[var(--color-setup-inputText)] focus:ring-2 focus:ring-[var(--color-setup-accent)] focus:border-[var(--color-setup-accent)] sm:text-sm transition-all appearance-none cursor-pointer"
               >
                 <option value="pt-BR">Português (Brasil)</option>
                 <option value="en-US">English (US)</option>
@@ -169,7 +175,8 @@ export default function SetupScreen() {
 
           <button
             onClick={handleStart}
-            className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 focus:ring-offset-slate-900 transition-all transform hover:scale-[1.02]"
+            style={{ backgroundColor: 'var(--color-setup-button)' }}
+            className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white hover:brightness-110 focus:outline-none transition-all transform hover:scale-[1.02]"
           >
             <Play className="h-5 w-5 mr-2" />
             {translateText('setup.startButton')}
