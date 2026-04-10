@@ -88,5 +88,18 @@
   "theme.keys.correctRow": "Destaque do Acerto",
   "theme.keys.wrongRow": "Destaque do Erro",
   "theme.keys.homeBtn": "Botão de Saída",
-  "theme.keys.waitingTitle": "Título da Tela de Espera"
+  "theme.keys.waitingTitle": "Título da Tela de Espera",
+
+  "editor.title": "Editor de Perguntas",
+  "editor.importBtn": "Importar CSV",
+  "editor.exportBtn": "Exportar CSV",
+  "editor.addBtn": "Adicionar Nova",
+  "editor.deleteBtn": "Excluir",
+  "editor.questionLabel": "Pergunta",
+  "editor.correctLabel": "Opção Correta",
+  "editor.wrong1Label": "Incorreta 1 (Obrig.)",
+  "editor.wrong2Label": "Incorreta 2 (Opc.)",
+  "editor.wrong3Label": "Incorreta 3 (Opc.)",
+  "editor.emptyState": "Comece adicionando uma pergunta ou importe um arquivo CSV.",
+  "editor.error.noValidQ": "Não há perguntas válidas para exportar. (Os campos Pergunta, Correta e Incorreta 1 são obrigatórios)"
 }

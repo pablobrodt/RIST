@@ -4,6 +4,7 @@ import HostDashboard from './components/HostDashboard';
 import GuestView from './components/GuestView';
 import ResultScreen from './components/ResultScreen';
 import ThemeScreen from './components/ThemeScreen';
+import EditorScreen from './components/EditorScreen';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/guest" element={<GuestView />} />
       <Route path="/result" element={<ResultScreen />} />
       <Route path="/theme" element={<ThemeScreen />} />
+      <Route path="/editor" element={<EditorScreen />} />
     </Routes>
   );
 }

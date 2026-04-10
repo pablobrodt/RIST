@@ -88,5 +88,18 @@
   "theme.keys.correctRow": "Correct Highlight",
   "theme.keys.wrongRow": "Wrong Highlight",
   "theme.keys.homeBtn": "Exit Button",
-  "theme.keys.waitingTitle": "Waiting Screen Title"
+  "theme.keys.waitingTitle": "Waiting Screen Title",
+
+  "editor.title": "Questions Editor",
+  "editor.importBtn": "Import CSV",
+  "editor.exportBtn": "Export CSV",
+  "editor.addBtn": "Add New Question",
+  "editor.deleteBtn": "Delete",
+  "editor.questionLabel": "Question",
+  "editor.correctLabel": "Correct Option",
+  "editor.wrong1Label": "Wrong Option 1 (Req)",
+  "editor.wrong2Label": "Wrong Option 2 (Opt)",
+  "editor.wrong3Label": "Wrong Option 3 (Opt)",
+  "editor.emptyState": "Start by adding a new question or importing a CSV file.",
+  "editor.error.noValidQ": "No valid questions to export. (Question, Correct, and Wrong 1 fields are required)"
 }

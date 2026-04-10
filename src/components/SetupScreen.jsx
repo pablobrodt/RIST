@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Papa from 'papaparse';
-import { Upload, Play, Users, Globe, Palette } from 'lucide-react';
+import { Upload, Play, Users, Globe, Palette, FileEdit } from 'lucide-react';
 import { useGameSync } from '../hooks/useGameSync';
 import { useTranslation } from '../hooks/useTranslation';
 import packageJson from '../../package.json';
@@ -91,6 +91,12 @@ export default function SetupScreen() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[var(--color-setup-bg)] tv-glow p-4 transition-colors">
       
+      {/* Editor Link */}
+      <Link to="/editor" className="absolute top-4 left-4 flex items-center px-4 py-2 bg-[var(--color-setup-card)] text-[var(--color-setup-textPrimary)] rounded-lg shadow-md border border-slate-700 hover:brightness-110 transition">
+        <FileEdit className="w-4 h-4 mr-2" />
+        {translateText('editor.title')}
+      </Link>
+
       {/* Theme Link */}
       <Link to="/theme" className="absolute top-4 right-4 flex items-center px-4 py-2 bg-[var(--color-setup-card)] text-[var(--color-setup-textPrimary)] rounded-lg shadow-md border border-slate-700 hover:brightness-110 transition">
         <Palette className="w-4 h-4 mr-2" />
