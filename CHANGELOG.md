@@ -5,6 +5,14 @@ Todas as mudanças notáveis para este projeto serão documentadas neste arquivo
 O formato baseia-se em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.0.3] - 10/04/2026
+
+### Adicionado
+- **Editor de Perguntas Nativo**: Criada uma nova tela interativa acessível pelo painel inicial permitindo construir bancos de dados internamente.
+- **Importação/Exportação Avançada**: Integrado suporte direto nativo com Papa Parse para ler CSVs anteriores e exportar novas planilhas limpas com validações (obrigando preenchimento dos campos corretos de respostas).
+- **Adequação Limpa ao Tema Base**: Removida a necessidade de configuração autônoma de cores para o editor visando não confundir preenchimentos com erros; a página usa 100% da identidade visual da Setup Inicial.
+- **Tradução Total**: Os "Empty States", avisos e *labels* de cabeçalhos das tabelas estão todos traduzidos no arquivo i18n principal (inglês e português).
+
 ## [0.0.2] - 10/04/2026
 
 ### Adicionado
