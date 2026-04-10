@@ -76,7 +76,7 @@ export default function HostDashboard() {
   };
 
   const openGuestTab = () => {
-    window.open('/guest', '_blank');
+    window.open('#/guest', '_blank');
   };
 
   return (
