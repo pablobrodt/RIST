@@ -4,6 +4,7 @@ import Papa from 'papaparse';
 import { Upload, Play, Users, Globe, Palette } from 'lucide-react';
 import { useGameSync } from '../hooks/useGameSync';
 import { useTranslation } from '../hooks/useTranslation';
+import packageJson from '../../package.json';
 
 export default function SetupScreen() {
   const [hostName, setHostName] = useState('');
@@ -182,6 +183,10 @@ export default function SetupScreen() {
             {translateText('setup.startButton')}
           </button>
         </div>
+      </div>
+
+      <div className="absolute bottom-4 right-4 text-xs font-mono opacity-30 text-[var(--color-setup-textPrimary)] hover:opacity-100 transition-opacity">
+        v{packageJson.version}
       </div>
     </div>
   );
