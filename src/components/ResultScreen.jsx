@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useGameSync } from '../hooks/useGameSync';
 import { Trophy, Check, X, Home } from 'lucide-react';
+import { useTranslation } from '../hooks/useTranslation';
 
 export default function ResultScreen() {
   const { gameState, resetGame } = useGameSync();
   const navigate = useNavigate();
   const location = useLocation();
   const isHost = location.state?.isHost;
+  const { translateText } = useTranslation();
 
   useEffect(() => {
     if (!gameState) {
@@ -32,11 +34,11 @@ export default function ResultScreen() {
         <div className="text-center mb-6 shrink-0 animate-fade-in-up">
           <Trophy className="w-16 h-16 mx-auto text-amber-400 mb-4 drop-shadow-[0_0_15px_rgba(251,191,36,0.6)]" />
           <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500 mb-2">
-            Resultados Finais
+            {translateText('result.title')}
           </h1>
           <p className="text-xl text-slate-300">
-            Pontuação Total: 
-            <span className="text-amber-400 font-bold mx-2">{correctCount}</span> de {totalCount}
+            {translateText('result.score')} 
+            <span className="text-amber-400 font-bold mx-2">{correctCount}</span> {translateText('result.of')} {totalCount}
           </p>
         </div>
 
@@ -44,10 +46,10 @@ export default function ResultScreen() {
           <table className="w-full text-left border-collapse">
             <thead className="sticky top-0 z-10 backdrop-blur shadow-sm">
               <tr className="bg-slate-800/80 text-sky-400 text-sm uppercase tracking-wider">
-                <th className="py-4 px-6 font-semibold w-16">#</th>
-                <th className="py-4 px-6 font-semibold border-l border-slate-700">Pergunta</th>
-                <th className="py-4 px-6 font-semibold border-l border-slate-700 w-32 text-center">Resultado</th>
-                <th className="py-4 px-6 font-semibold border-l border-slate-700 w-1/4">Resposta Correta</th>
+                <th className="py-4 px-6 font-semibold w-16">{translateText('result.colNumber')}</th>
+                <th className="py-4 px-6 font-semibold border-l border-slate-700">{translateText('result.colQuestion')}</th>
+                <th className="py-4 px-6 font-semibold border-l border-slate-700 w-32 text-center">{translateText('result.colResult')}</th>
+                <th className="py-4 px-6 font-semibold border-l border-slate-700 w-1/4">{translateText('result.colCorrectAnswer')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/50">
@@ -82,7 +84,7 @@ export default function ResultScreen() {
               className="flex items-center px-6 py-3 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition shadow-[0_0_15px_rgba(2,132,199,0.5)] transform hover:scale-105"
             >
               <Home className="w-5 h-5 mr-2" />
-              Iniciar Novo Jogo
+              {translateText('result.newGame')}
             </button>
           )}
         </div>

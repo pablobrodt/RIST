@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useGameSync } from '../hooks/useGameSync';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from '../hooks/useTranslation';
 
 export default function GuestView() {
   const { gameState } = useGameSync();
   const [dots, setDots] = useState('');
+  const { translateText } = useTranslation();
 
   // Loading animation for waiting state
   useEffect(() => {
@@ -28,9 +30,9 @@ export default function GuestView() {
     return (
       <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-8 tv-glow font-sans">
         <h1 className="text-4xl text-sky-400 font-bold mb-4 animate-pulse">
-          Aguardando Apresentador{dots}
+          {translateText('guest.waitingTitle')}{dots}
         </h1>
-        <p className="text-slate-500">A transmissão do jogo começará em breve.</p>
+        <p className="text-slate-500">{translateText('guest.waitingSubtitle')}</p>
       </div>
     );
   }
@@ -43,12 +45,12 @@ export default function GuestView() {
       {/* Live Indicator */}
       <div className="absolute top-6 left-8 flex items-center space-x-2">
         <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-        <span className="text-red-500 uppercase tracking-widest font-bold text-sm">AO VIVO</span>
+        <span className="text-red-500 uppercase tracking-widest font-bold text-sm">{translateText('guest.live')}</span>
       </div>
       
       {/* Contestant Status */}
       <div className="absolute top-6 right-8 text-right">
-        <p className="text-slate-400 text-sm uppercase tracking-wider">Convidado</p>
+        <p className="text-slate-400 text-sm uppercase tracking-wider">{translateText('guest.guestRole')}</p>
         <p className="text-white font-bold text-xl">{gameState.guestName}</p>
       </div>
 

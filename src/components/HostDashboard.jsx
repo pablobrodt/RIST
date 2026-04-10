@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGameSync } from '../hooks/useGameSync';
 import { Lightbulb, CheckCircle2, ChevronRight, Home, ExternalLink } from 'lucide-react';
+import { useTranslation } from '../hooks/useTranslation';
 
 export default function HostDashboard() {
   const { gameState, updateGameState, resetGame } = useGameSync();
   const navigate = useNavigate();
+  const { translateText } = useTranslation();
 
   useEffect(() => {
     if (!gameState) {
@@ -69,7 +71,7 @@ export default function HostDashboard() {
   };
 
   const handleHome = () => {
-    if (window.confirm('Tem certeza de que deseja encerrar o jogo atual e voltar à configuração?')) {
+    if (window.confirm(translateText('host.homeConfirm'))) {
       resetGame();
       navigate('/');
     }
@@ -89,13 +91,13 @@ export default function HostDashboard() {
             <button 
               onClick={handleHome}
               className="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition"
-              title="Voltar ao Início"
+              title={translateText('host.homeTitle')}
             >
               <Home className="w-5 h-5" />
             </button>
             <div>
-              <h1 className="font-bold text-xl text-slate-800">Painel do Apresentador</h1>
-              <p className="text-sm text-slate-500">Apresentador: {gameState.hostName} | Convidado: {gameState.guestName}</p>
+              <h1 className="font-bold text-xl text-slate-800">{translateText('host.panelTitle')}</h1>
+              <p className="text-sm text-slate-500">{translateText('host.hostLabel')} {gameState.hostName} | {translateText('host.guestLabel')} {gameState.guestName}</p>
             </div>
           </div>
           
@@ -105,10 +107,13 @@ export default function HostDashboard() {
               className="flex items-center px-4 py-2 bg-slate-800 text-white text-sm font-medium rounded-lg hover:bg-slate-700 transition"
             >
               <ExternalLink className="w-4 h-4 mr-2" />
-              Abrir Visão do Convidado
+              {translateText('host.openGuestView')}
             </button>
             <div className="px-4 py-2 bg-indigo-50 text-indigo-700 text-sm font-medium rounded-lg border border-indigo-100">
-              Pergunta {gameState.currentQuestionIndex + 1} / {gameState.questions.length}
+              {translateText('host.questionCount', { 
+                current: gameState.currentQuestionIndex + 1, 
+                total: gameState.questions.length 
+              })}
             </div>
           </div>
         </div>
@@ -153,7 +158,7 @@ export default function HostDashboard() {
                       <span className="font-semibold text-lg text-slate-700">{['A', 'B', 'C', 'D'][idx]}: {option}</span>
                       {showHostHighlight && (
                         <span className="text-xs font-bold px-2 py-1 bg-emerald-100 text-emerald-700 rounded-full">
-                          CORRETO
+                          {translateText('host.correctStatus')}
                         </span>
                       )}
                     </div>
@@ -166,7 +171,7 @@ export default function HostDashboard() {
           {/* Controls */}
           <div className="col-span-1 space-y-4">
             <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col space-y-4">
-              <h3 className="font-bold text-slate-800 border-b pb-2">Controles do Jogo</h3>
+              <h3 className="font-bold text-slate-800 border-b pb-2">{translateText('host.controlsTitle')}</h3>
               
               <button
                 onClick={handleConfirm}
@@ -174,7 +179,7 @@ export default function HostDashboard() {
                 className="w-full flex items-center justify-center py-3 px-4 bg-emerald-600 text-white rounded-lg font-bold hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
                 <CheckCircle2 className="w-5 h-5 mr-2" />
-                Confirmar Resposta
+                {translateText('host.confirmAnswer')}
               </button>
 
               <button
@@ -182,16 +187,16 @@ export default function HostDashboard() {
                 disabled={!gameState.isRevealed}
                 className="w-full flex items-center justify-center py-3 px-4 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
-                {gameState.currentQuestionIndex < gameState.questions.length - 1 ? 'Próxima Pergunta' : 'Mostrar Resultados'}
+                {gameState.currentQuestionIndex < gameState.questions.length - 1 ? translateText('host.nextQuestion') : translateText('host.showResults')}
                 <ChevronRight className="w-5 h-5 ml-2" />
               </button>
             </div>
 
             <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col space-y-4">
               <div className="flex justify-between items-center border-b pb-2">
-                <h3 className="font-bold text-slate-800">Poderes</h3>
+                <h3 className="font-bold text-slate-800">{translateText('host.powersTitle')}</h3>
                 <span className="text-xs font-bold px-2 py-1 bg-slate-100 text-slate-600 rounded-full">
-                  Disponível: {gameState.availableHints}
+                  {translateText('host.available')} {gameState.availableHints}
                 </span>
               </div>
               
@@ -201,7 +206,7 @@ export default function HostDashboard() {
                 className="w-full flex items-center justify-center py-3 px-4 bg-amber-500 text-white rounded-lg font-bold hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
                 <Lightbulb className="w-5 h-5 mr-2" />
-                Dica 50:50
+                {translateText('host.hint5050')}
               </button>
             </div>
 
