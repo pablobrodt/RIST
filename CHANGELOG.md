@@ -5,6 +5,15 @@ Todas as mudanças notáveis para este projeto serão documentadas neste arquivo
 O formato baseia-se em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.0.2] - 10/04/2026
+
+### Adicionado
+- **Sistema de Temas Dinâmico e Customizável**: Toda a interface do jogo (Setup, Apresentador, Convidado e Resultado) agora suporta mudança de cor nativa e reativa através de variáveis CSS.
+- **Painel de Configuração de Temas**: Inserida uma nova interface interativa acessível pela tela inicial contendo 34 *Color Pickers* individuais para cada elemento do sistema.
+- **Importação e Exportação de Temas**: Lógica completa recém-criada permitindo que o usuário pinte uma paleta e a salve localmente em um `.json` seguro pronto para uso posterior.
+- **Controle Fino de Componentes**: Ajustado para que as caixas de input (texto/placeholder) e o título da Tela de Espera tivessem independência de cor separada da "Cor de Destaque" original.
+- **Marcador de Versão**: Inserida a visibilidade sutil no canto da tela inicial que é importada direto do `package.json`.
+
 ## [0.0.1] - 10/04/2026
 
 ### Adicionado
