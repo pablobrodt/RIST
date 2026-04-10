@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+body {
+  @apply bg-slate-900 text-slate-100 font-sans antialiased overflow-x-hidden;
+}
+
+/* Base custom styles for glow and effects */
+.tv-glow {
+  box-shadow: 0 0 40px rgba(56, 189, 248, 0.15), inset 0 0 20px rgba(56, 189, 248, 0.1);
+}
+
+.option-selected {
+  @apply ring-4 ring-amber-400 bg-sky-900 shadow-[0_0_15px_rgba(251,191,36,0.5)];
+}
+
+.option-correct {
+  @apply ring-4 ring-emerald-500 bg-emerald-900 shadow-[0_0_15px_rgba(16,185,129,0.5)];
+}
+
+.option-wrong {
+  @apply ring-4 ring-rose-500 bg-rose-900 shadow-[0_0_15px_rgba(244,63,94,0.5)];
+}
+
+.option-eliminated {
+  @apply opacity-20 pointer-events-none;
+}
