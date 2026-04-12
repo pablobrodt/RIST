@@ -5,6 +5,12 @@ Todas as mudanças notáveis para este projeto serão documentadas neste arquivo
 O formato baseia-se em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.0.4] - 11/04/2026
+
+### Adicionado
+- **Poderes do Apresentador (Skip e Help)**: Adicionada a capacidade do Apresentador utilizar os novos poderes "Pular Pergunta" e "Procurar Ajuda" ("Search Help"). O poder de Ajuda aciona um relógio regressivo de 30 segundos sincronizado em ambas as telas com indicadores visuais responsivos (ficando vermelho nos últimos 10 segundos).
+- **Tabela de Resultados Atualizada**: A tela final de resultados ignora pontuações para perguntas devidamente puladas, exibindo tags dinâmicas customizadas de "PULADA" / "SKIPPED".
+
 ## [0.0.3] - 10/04/2026
 
 ### Adicionado
