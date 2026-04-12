@@ -1,14 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGameSync } from '../hooks/useGameSync';
-import { Lightbulb, CheckCircle2, ChevronRight, Home, ExternalLink, SkipForward } from 'lucide-react';
+import { Lightbulb, CheckCircle2, ChevronRight, Home, ExternalLink, SkipForward, Search } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
 import { RESULT_SKIPPED } from '../utils/constants';
+import { useHelpTimer } from '../hooks/useHelpTimer';
 
 export default function HostDashboard() {
   const { gameState, updateGameState, resetGame } = useGameSync();
   const navigate = useNavigate();
   const { translateText } = useTranslation();
+
+  const handleTimerComplete = useCallback(() => {
+    updateGameState({
+      helpTimerEndTime: null,
+      helpTimesUp: true
+    });
+    
+    setTimeout(() => {
+      updateGameState({ helpTimesUp: false });
+    }, 3000);
+  }, [updateGameState]);
+
+  const timeLeft = useHelpTimer(gameState?.helpTimerEndTime, handleTimerComplete);
 
   useEffect(() => {
     if (!gameState) {
@@ -50,7 +64,9 @@ export default function HostDashboard() {
         currentQuestionIndex: gameState.currentQuestionIndex + 1,
         selectedOption: null,
         isRevealed: false,
-        eliminatedOptions: []
+        eliminatedOptions: [],
+        helpTimerEndTime: null,
+        helpTimesUp: false
       });
     } else {
       updateGameState({ isFinished: true });
@@ -99,6 +115,16 @@ export default function HostDashboard() {
           });
         }
       }
+    }
+  };
+
+  const handleHelp = () => {
+    if (gameState.availableHelps > 0 && !gameState.isRevealed && !gameState.helpTimerEndTime) {
+      updateGameState({
+        availableHelps: gameState.availableHelps - 1,
+        helpTimerEndTime: Date.now() + 30000,
+        helpTimesUp: false
+      });
     }
   };
 
@@ -154,6 +180,19 @@ export default function HostDashboard() {
           
           {/* Main Stage */}
           <div className="col-span-2 space-y-4">
+            
+            {(gameState.helpTimerEndTime || gameState.helpTimesUp) && (
+              <div className={`p-4 rounded-xl shadow-sm border flex items-center justify-center transition-colors ${gameState.helpTimesUp ? 'bg-red-100 border-red-300' : 'bg-[var(--color-host-card)] border-slate-200'}`}>
+                  {gameState.helpTimesUp ? (
+                      <h3 className="text-2xl font-bold text-red-600 animate-pulse">{translateText('game.timesUp')}</h3>
+                  ) : (
+                      <div className={`text-3xl font-bold tracking-widest ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-[var(--color-host-textPrimary)]'}`}>
+                          00:{timeLeft.toString().padStart(2, '0')}
+                      </div>
+                  )}
+              </div>
+            )}
+
             <div className="bg-[var(--color-host-card)] p-6 rounded-xl shadow-sm border border-slate-200 min-h-[160px] flex items-center justify-center transition-colors">
               <h2 className="text-2xl font-bold text-center text-[var(--color-host-textPrimary)]">
                 {currentQ.question}
@@ -234,7 +273,7 @@ export default function HostDashboard() {
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={handleHint}
-                  disabled={gameState.availableHints === 0 || gameState.isRevealed}
+                  disabled={gameState.availableHints === 0 || gameState.isRevealed || gameState.helpTimerEndTime}
                   style={{ backgroundColor: 'var(--color-host-hintBtn)' }}
                   className="w-full flex flex-col items-center justify-center py-3 px-2 text-white rounded-lg font-bold hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition"
                 >
@@ -244,12 +283,22 @@ export default function HostDashboard() {
 
                 <button
                   onClick={handleSkip}
-                  disabled={gameState.availableSkips === 0 || gameState.isRevealed}
+                  disabled={gameState.availableSkips === 0 || gameState.isRevealed || gameState.helpTimerEndTime}
                   style={{ backgroundColor: 'var(--color-host-hintBtn)' }}
                   className="w-full flex flex-col items-center justify-center py-3 px-2 text-white rounded-lg font-bold hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition"
                 >
                   <SkipForward className="w-5 h-5 mb-1" />
                   <span className="text-xs text-center">{translateText('host.skipPower')}</span>
+                </button>
+
+                <button
+                  onClick={handleHelp}
+                  disabled={gameState.availableHelps === 0 || gameState.isRevealed || gameState.helpTimerEndTime}
+                  style={{ backgroundColor: 'var(--color-host-hintBtn)' }}
+                  className="w-full flex flex-col items-center justify-center py-3 px-2 text-white rounded-lg font-bold hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition col-span-2"
+                >
+                  <Search className="w-5 h-5 mb-1" />
+                  <span className="text-xs text-center">{translateText('host.helpPower')}</span>
                 </button>
               </div>
             </div>

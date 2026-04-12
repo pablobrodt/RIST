@@ -32,6 +32,8 @@
   "host.hint5050": "Dica 50:50",
   "host.skipPower": "Pular Pergunta",
   "host.skipConfirm": "Tem certeza que deseja pular esta pergunta? Este poder só pode ser usado uma vez.",
+  "host.helpPower": "Procurar Ajuda",
+  "game.timesUp": "Tempo Esgotado!",
 
   "guest.waitingTitle": "Aguardando Apresentador",
   "guest.waitingSubtitle": "A transmissão do jogo começará em breve.",

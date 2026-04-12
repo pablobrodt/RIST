@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useGameSync } from '../hooks/useGameSync';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../hooks/useTranslation';
+import { useHelpTimer } from '../hooks/useHelpTimer';
 
 export default function GuestView() {
   const { gameState } = useGameSync();
   const [dots, setDots] = useState('');
   const { translateText } = useTranslation();
+  const timeLeft = useHelpTimer(gameState?.helpTimerEndTime);
 
   // Loading animation for waiting state
   useEffect(() => {
@@ -56,6 +58,21 @@ export default function GuestView() {
 
       <div className="w-full max-w-6xl space-y-12">
         
+        {/* Timer Overlay */}
+        {(gameState.helpTimerEndTime || gameState.helpTimesUp) && (
+          <div className="absolute top-12 left-1/2 transform -translate-x-1/2 z-50">
+            <div className={`px-12 py-4 rounded-2xl shadow-2xl border-4 flex items-center justify-center transition-all ${gameState.helpTimesUp ? 'bg-red-600 border-red-800 scale-100' : 'bg-slate-900 border-slate-700 scale-100'}`}>
+                {gameState.helpTimesUp ? (
+                    <h3 className="text-3xl font-black text-white animate-pulse tracking-widest uppercase drop-shadow-lg">{translateText('game.timesUp')}</h3>
+                ) : (
+                    <div className={`font-mono text-5xl font-black tracking-widest ${timeLeft <= 10 ? 'text-red-500 animate-pulse drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]' : 'text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]'}`}>
+                        00:{timeLeft.toString().padStart(2, '0')}
+                    </div>
+                )}
+            </div>
+          </div>
+        )}
+
         {/* Question Panel */}
         <div className="relative w-full border-t-2 border-b-2 bg-[var(--color-guest-panel)] py-12 px-8 flex items-center justify-center shadow-lg transition-colors border-[var(--color-guest-accent)]">
           <div className="absolute top-0 right-0 p-2 text-sm font-bold opacity-70 text-[var(--color-guest-accent)]">

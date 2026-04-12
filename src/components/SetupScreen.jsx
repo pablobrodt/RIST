@@ -76,6 +76,9 @@ export default function SetupScreen() {
           isFinished: false,
           availableHints: 1,
           availableSkips: 1,
+          availableHelps: 1,
+          helpTimerEndTime: null,
+          helpTimesUp: false,
           eliminatedOptions: [],
           results: []
         };

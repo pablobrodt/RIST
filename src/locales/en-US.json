@@ -32,6 +32,8 @@
   "host.hint5050": "50:50 Hint",
   "host.skipPower": "Skip Question",
   "host.skipConfirm": "Are you sure you want to skip this question? This power-up can only be used once.",
+  "host.helpPower": "Search Help",
+  "game.timesUp": "Time's up!",
 
   "guest.waitingTitle": "Waiting for Host",
   "guest.waitingSubtitle": "The game broadcast will start shortly.",
