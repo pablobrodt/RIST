@@ -30,6 +30,8 @@
   "host.powersTitle": "Poderes",
   "host.available": "Disponível:",
   "host.hint5050": "Dica 50:50",
+  "host.skipPower": "Pular Pergunta",
+  "host.skipConfirm": "Tem certeza que deseja pular esta pergunta? Este poder só pode ser usado uma vez.",
 
   "guest.waitingTitle": "Aguardando Apresentador",
   "guest.waitingSubtitle": "A transmissão do jogo começará em breve.",
@@ -44,6 +46,7 @@
   "result.colResult": "Resultado",
   "result.colCorrectAnswer": "Resposta Correta",
   "result.newGame": "Iniciar Novo Jogo",
+  "result.skippedLabel": "PULADA",
 
   "setup.themeBtn": "Configurar Tema",
   "theme.title": "Configuração de Tema",

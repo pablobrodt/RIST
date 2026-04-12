@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useGameSync } from '../hooks/useGameSync';
 import { Trophy, Check, X, Home } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
+import { RESULT_SKIPPED } from '../utils/constants';
 
 export default function ResultScreen() {
   const { gameState, resetGame } = useGameSync();
@@ -19,8 +20,8 @@ export default function ResultScreen() {
 
   if (!gameState) return null;
 
-  const correctCount = gameState.results.filter(r => r.result).length;
-  const totalCount = gameState.results.length;
+  const correctCount = gameState.results.filter(r => r.result === true).length;
+  const totalCount = gameState.results.filter(r => r.result !== RESULT_SKIPPED).length;
 
   const handleHome = () => {
     resetGame();
@@ -57,7 +58,11 @@ export default function ResultScreen() {
                   <td className="py-4 px-6 opacity-70 font-medium">{idx + 1}</td>
                   <td className="py-4 px-6 border-l border-slate-800/50 font-medium">{item.question}</td>
                   <td className="py-4 px-6 border-l border-slate-800/50 text-center">
-                    {item.result ? (
+                    {item.result === RESULT_SKIPPED ? (
+                      <div className="flex justify-center rounded-full py-1 text-xs font-bold bg-slate-500/20 text-slate-400" border="border border-slate-500/30">
+                        {translateText('result.skippedLabel')}
+                      </div>
+                    ) : item.result ? (
                       <div className="flex justify-center rounded-full py-1" style={{ backgroundColor: 'var(--color-result-correctRow)', opacity: 0.8 }}>
                         <Check className="w-5 h-5 text-white" />
                       </div>

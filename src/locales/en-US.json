@@ -30,6 +30,8 @@
   "host.powersTitle": "Powers",
   "host.available": "Available:",
   "host.hint5050": "50:50 Hint",
+  "host.skipPower": "Skip Question",
+  "host.skipConfirm": "Are you sure you want to skip this question? This power-up can only be used once.",
 
   "guest.waitingTitle": "Waiting for Host",
   "guest.waitingSubtitle": "The game broadcast will start shortly.",
@@ -44,6 +46,7 @@
   "result.colResult": "Result",
   "result.colCorrectAnswer": "Correct Answer",
   "result.newGame": "Start New Game",
+  "result.skippedLabel": "SKIPPED",
 
   "setup.themeBtn": "Configure Theme",
   "theme.title": "Theme Configuration",

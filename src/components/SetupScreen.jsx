@@ -75,6 +75,7 @@ export default function SetupScreen() {
           isRevealed: false,
           isFinished: false,
           availableHints: 1,
+          availableSkips: 1,
           eliminatedOptions: [],
           results: []
         };

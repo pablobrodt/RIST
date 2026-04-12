@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGameSync } from '../hooks/useGameSync';
-import { Lightbulb, CheckCircle2, ChevronRight, Home, ExternalLink } from 'lucide-react';
+import { Lightbulb, CheckCircle2, ChevronRight, Home, ExternalLink, SkipForward } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
+import { RESULT_SKIPPED } from '../utils/constants';
 
 export default function HostDashboard() {
   const { gameState, updateGameState, resetGame } = useGameSync();
@@ -67,6 +68,37 @@ export default function HostDashboard() {
         eliminatedOptions: toEliminate,
         availableHints: gameState.availableHints - 1
       });
+    }
+  };
+
+  const handleSkip = () => {
+    if (gameState.availableSkips > 0 && !gameState.isRevealed) {
+      if (window.confirm(translateText('host.skipConfirm'))) {
+        const newResults = [...gameState.results, {
+          question: currentQ.question,
+          result: RESULT_SKIPPED,
+          correctAnswer: currentQ.correct
+        }];
+        
+        const isFinished = gameState.currentQuestionIndex >= gameState.questions.length - 1;
+
+        if (isFinished) {
+          updateGameState({
+            availableSkips: gameState.availableSkips - 1,
+            results: newResults,
+            isFinished: true
+          });
+        } else {
+          updateGameState({
+            availableSkips: gameState.availableSkips - 1,
+            results: newResults,
+            currentQuestionIndex: gameState.currentQuestionIndex + 1,
+            selectedOption: null,
+            isRevealed: false,
+            eliminatedOptions: []
+          });
+        }
+      }
     }
   };
 
@@ -197,20 +229,29 @@ export default function HostDashboard() {
             <div className="bg-[var(--color-host-card)] p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col space-y-4 transition-colors">
               <div className="flex justify-between items-center border-b pb-2">
                 <h3 className="font-bold text-[var(--color-host-textPrimary)]">{translateText('host.powersTitle')}</h3>
-                <span className="text-xs font-bold px-2 py-1 bg-slate-100 opacity-70 text-[var(--color-host-textPrimary)] rounded-full border border-slate-200">
-                  {translateText('host.available')} {gameState.availableHints}
-                </span>
               </div>
               
-              <button
-                onClick={handleHint}
-                disabled={gameState.availableHints === 0 || gameState.isRevealed}
-                style={{ backgroundColor: 'var(--color-host-hintBtn)' }}
-                className="w-full flex items-center justify-center py-3 px-4 text-white rounded-lg font-bold hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition"
-              >
-                <Lightbulb className="w-5 h-5 mr-2" />
-                {translateText('host.hint5050')}
-              </button>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={handleHint}
+                  disabled={gameState.availableHints === 0 || gameState.isRevealed}
+                  style={{ backgroundColor: 'var(--color-host-hintBtn)' }}
+                  className="w-full flex flex-col items-center justify-center py-3 px-2 text-white rounded-lg font-bold hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                >
+                  <Lightbulb className="w-5 h-5 mb-1" />
+                  <span className="text-xs text-center">{translateText('host.hint5050')}</span>
+                </button>
+
+                <button
+                  onClick={handleSkip}
+                  disabled={gameState.availableSkips === 0 || gameState.isRevealed}
+                  style={{ backgroundColor: 'var(--color-host-hintBtn)' }}
+                  className="w-full flex flex-col items-center justify-center py-3 px-2 text-white rounded-lg font-bold hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                >
+                  <SkipForward className="w-5 h-5 mb-1" />
+                  <span className="text-xs text-center">{translateText('host.skipPower')}</span>
+                </button>
+              </div>
             </div>
 
           </div>
