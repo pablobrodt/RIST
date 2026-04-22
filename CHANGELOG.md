@@ -5,6 +5,17 @@ Todas as mudanças notáveis para este projeto serão documentadas neste arquivo
 O formato baseia-se em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.0.5] - 22/04/2026
+
+### Adicionado
+- **Botão de Jogo de Demonstração**: Implementado um novo botão na tela de configuração que permite iniciar instantaneamente um jogo de teste sem a necessidade de upload manual de arquivos.
+- **Banco de Dados de Demonstração Nativo**: Criado o arquivo `demo.csv` na pasta pública contendo uma série de perguntas sobre videogames em português, otimizado com formatação robusta para lidar com caracteres especiais e vírgulas internas.
+- **Nomes Automáticos para Demo**: Adicionada lógica para preenchimento automático dos nomes do Apresentador e Convidado caso sejam deixados em branco ao iniciar o modo de demonstração.
+
+### Alterado
+- **Refatoração do Fluxo de Inicialização**: A lógica de carregamento do jogo no `SetupScreen` foi modularizada em uma função `startGame` para suportar tanto o upload manual quanto o modo de demonstração de forma consistente.
+- **Tratamento de Base URL**: Ajustada a busca do arquivo de demo para utilizar `import.meta.env.BASE_URL`, garantindo compatibilidade em ambientes de subdiretório (como GitHub Pages).
+
 ## [0.0.4] - 11/04/2026
 
 ### Adicionado
