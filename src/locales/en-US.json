@@ -13,6 +13,7 @@
   "setup.error.csvInvalid": "Invalid CSV format. Expected columns: question, correct, wrong1, wrong2, wrong3",
   "setup.error.csvParse": "Error parsing the CSV file.",
   "setup.startButton": "Start Panel",
+  "setup.demoButton": "Demo Game",
   "setup.language": "Language",
 
   "host.homeConfirm": "Are you sure you want to end the current game and return to setup?",

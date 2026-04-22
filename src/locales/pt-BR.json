@@ -13,6 +13,7 @@
   "setup.error.csvInvalid": "Formato CSV inválido. Colunas esperadas: question, correct, wrong1, wrong2, wrong3",
   "setup.error.csvParse": "Erro ao analisar o arquivo CSV.",
   "setup.startButton": "Iniciar Painel",
+  "setup.demoButton": "Jogo de Demonstração",
   "setup.language": "Idioma",
 
   "host.homeConfirm": "Tem certeza de que deseja encerrar o jogo atual e voltar à configuração?",

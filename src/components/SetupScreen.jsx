@@ -31,6 +31,48 @@ export default function SetupScreen() {
     return shuffled;
   };
 
+  const startGame = (data, hName, gName) => {
+    if (data.length === 0) {
+      setError(translateText('setup.error.csvEmpty'));
+      return;
+    }
+
+    const firstRow = data[0];
+    if (!('question' in firstRow) || !('correct' in firstRow) || !('wrong1' in firstRow)) {
+      setError(translateText('setup.error.csvInvalid'));
+      return;
+    }
+
+    const questions = data.map((row) => ({
+      question: row.question,
+      correct: row.correct,
+      wrong1: row.wrong1,
+      wrong2: row.wrong2,
+      wrong3: row.wrong3,
+      shuffledOptions: shuffleArray([row.correct, row.wrong1, row.wrong2, row.wrong3].filter(Boolean))
+    }));
+
+    const initialState = {
+      hostName: hName,
+      guestName: gName,
+      questions,
+      currentQuestionIndex: 0,
+      selectedOption: null,
+      isRevealed: false,
+      isFinished: false,
+      availableHints: 1,
+      availableSkips: 1,
+      availableHelps: 1,
+      helpTimerEndTime: null,
+      helpTimesUp: false,
+      eliminatedOptions: [],
+      results: []
+    };
+
+    syncGameState(initialState);
+    navigate('/host');
+  };
+
   const handleStart = () => {
     if (!hostName || !guestName) {
       setError(translateText('setup.error.namesMissing'));
@@ -45,46 +87,24 @@ export default function SetupScreen() {
       header: true,
       skipEmptyLines: true,
       complete: (results) => {
-        const data = results.data;
-        if (data.length === 0) {
-          setError(translateText('setup.error.csvEmpty'));
-          return;
-        }
+        startGame(results.data, hostName, guestName);
+      },
+      error: () => {
+        setError(translateText('setup.error.csvParse'));
+      }
+    });
+  };
 
-        const firstRow = data[0];
-        if (!('question' in firstRow) || !('correct' in firstRow) || !('wrong1' in firstRow)) {
-          setError(translateText('setup.error.csvInvalid'));
-          return;
-        }
+  const handleDemo = () => {
+    const dHostName = hostName || (currentLanguage === 'pt-BR' ? 'Apresentador Demo' : 'Host Demo');
+    const dGuestName = guestName || (currentLanguage === 'pt-BR' ? 'Convidado Demo' : 'Guest Demo');
 
-        const questions = data.map((row) => ({
-          question: row.question,
-          correct: row.correct,
-          wrong1: row.wrong1,
-          wrong2: row.wrong2,
-          wrong3: row.wrong3,
-          shuffledOptions: shuffleArray([row.correct, row.wrong1, row.wrong2, row.wrong3].filter(Boolean))
-        }));
-
-        const initialState = {
-          hostName,
-          guestName,
-          questions,
-          currentQuestionIndex: 0,
-          selectedOption: null,
-          isRevealed: false,
-          isFinished: false,
-          availableHints: 1,
-          availableSkips: 1,
-          availableHelps: 1,
-          helpTimerEndTime: null,
-          helpTimesUp: false,
-          eliminatedOptions: [],
-          results: []
-        };
-
-        syncGameState(initialState);
-        navigate('/host');
+    Papa.parse(`${import.meta.env.BASE_URL}demo.csv`, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        startGame(results.data, dHostName, dGuestName);
       },
       error: () => {
         setError(translateText('setup.error.csvParse'));
@@ -184,14 +204,24 @@ export default function SetupScreen() {
 
           {error && <div className="text-rose-400 text-sm text-center bg-rose-900/20 py-2 rounded-lg">{error}</div>}
 
-          <button
-            onClick={handleStart}
-            style={{ backgroundColor: 'var(--color-setup-button)' }}
-            className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white hover:brightness-110 focus:outline-none transition-all transform hover:scale-[1.02]"
-          >
-            <Play className="h-5 w-5 mr-2" />
-            {translateText('setup.startButton')}
-          </button>
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={handleStart}
+              style={{ backgroundColor: 'var(--color-setup-button)' }}
+              className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white hover:brightness-110 focus:outline-none transition-all transform hover:scale-[1.02]"
+            >
+              <Play className="h-5 w-5 mr-2" />
+              {translateText('setup.startButton')}
+            </button>
+
+            <button
+              onClick={handleDemo}
+              className="w-full flex justify-center items-center py-3 px-4 border border-slate-700 rounded-lg shadow-sm text-sm font-bold text-[var(--color-setup-textPrimary)] bg-[var(--color-setup-card)] hover:bg-slate-800 focus:outline-none transition-all transform hover:scale-[1.02]"
+            >
+              <Play className="h-5 w-5 mr-2 text-[var(--color-setup-accent)]" />
+              {translateText('setup.demoButton')}
+            </button>
+          </div>
         </div>
       </div>
 
